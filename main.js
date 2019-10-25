@@ -5,6 +5,9 @@ var app = express();
 app.get("/url", (req, res, next) => {
   res.json([aCounter, bCounter, cCounter, dCounter]);
 });
+app.get("/voters", (req, res, next) => {
+  res.json(voters.join(" "));
+});
 app.listen(3000, () => {
   console.log("Server running on port 3000");
 });
