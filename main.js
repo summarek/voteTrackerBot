@@ -20,6 +20,7 @@ const opts = {
 };
 
 let aCounter = 0, bCounter = 0,cCounter = 0, dCounter = 0;
+const voters = [];
 
 const client = new tmi.client(opts);
 
@@ -28,35 +29,41 @@ client.on('connected', onConnectedHandler);
 
 client.connect();
 
-
-function onMessageHandler (target, context, msg, self) {
+function onMessageHandler (target, user, msg, self) {
   if (self) { return; } // Ignore messages from the bot
 
   const commandName = msg.trim();
+  let author = user['display-name'];
 
-  switch(commandName){
-    case "!vote a":
-      aCounter++
-      break;
-    case "!vote b":
-      bCounter++
-      break;
-    case "!vote c":
-      cCounter++
-      break;
-    case "!vote d":
-      dCounter++ 
-      break;
+  if (!voters.includes(author)) {
+    switch(commandName){      
+      case "!vote a":
+        aCounter++
+        voters.push(author)      
+        break;
+      case "!vote b":
+        bCounter++
+        voters.push(author)
+        break;
+      case "!vote c":
+        cCounter++
+        voters.push(author)     
+        break;
+      case "!vote d":
+        dCounter++ 
+        voters.push(author)      
+        break;
+    }
   }
+
+  console.log(voters);
   
   console.log(aCounter);
   console.log(bCounter);
   console.log(cCounter);
   console.log(dCounter);
-  
 
 }
-
 
 function onConnectedHandler (addr, port) {
   console.log(`* Connected to ${addr}:${port}`);

@@ -1,1 +1,1 @@
-export const key = "Your key"
+module.exports = 'oauth:k44tlr2kyyj4sweeio66rxvxg6a4ol';
