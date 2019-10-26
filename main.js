@@ -38,7 +38,7 @@ function onMessageHandler (target, user, msg, self) {
   const commandName = msg.trim();
   let author = user['display-name'];
 
-  if (!voters.includes(author)) {
+ // if (!voters.includes(author)) {
     switch(commandName){      
       case "!vote a":
         aCounter++
@@ -57,7 +57,7 @@ function onMessageHandler (target, user, msg, self) {
         voters.push(author)      
         break;
     }
-  }
+ // }
 
   console.log(voters);
   
