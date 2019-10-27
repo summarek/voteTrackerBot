@@ -2,8 +2,19 @@ const tmi = require('tmi.js');
 const key = require("./key")
 var express = require("express");
 var app = express();
+
+
+    app.use(function (req, res, next) {            res.setHeader('Access-Control-Allow-Origin', '*');            res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');            res.setHeader('Access-Control-Allow-Headers', 'Access-Control-Allow-Headers, Origin,Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers,X-Access-Token,XKey,Authorization');            next();         });
+
 app.get("/url", (req, res, next) => {
   res.json([aCounter, bCounter, cCounter, dCounter]);
+
+var ip1 = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
+var ip2 = req.headers['x-real-ip'] || req.connection.remoteAddress;
+
+
+	console.log("IP1 = " + ip1)
+	console.log("IP2 = " + ip2)
 });
 app.get("/voters", (req, res, next) => {
   res.json(voters.join(" "));
@@ -11,6 +22,9 @@ app.get("/voters", (req, res, next) => {
 app.listen(3000, () => {
   console.log("Server running on port 3000");
 });
+
+app.set('trust proxy', true);
+
 
 const opts = {
   identity: {
